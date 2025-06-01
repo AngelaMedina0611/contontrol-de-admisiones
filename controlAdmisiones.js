@@ -10,15 +10,15 @@ class Usuario {
     }
 }
 
-// // Clase que representa una actividad (taller o charla)
-// class Actividad {
-//     constructor(nombre, tipo, cupo, edadMinima = 0) {
-//         this.nombre = nombre; // Nombre de la actividad
-//         this.tipo = tipo; // Tipo de actividad: 'taller' o 'charla'
-//         this.cupo = cupo; // Cupo máximo de participantes
-//         this.edadMinima = edadMinima; // Edad mínima requerida para participar
-//         this.inscritos = []; // Lista de usuarios inscritos
-//     }
+// Clase que representa una actividad (taller o charla)
+class Actividad {
+    constructor(nombre, tipo, cupo, edadMinima = 0) {
+        this.nombre = nombre; // Nombre de la actividad
+        this.tipo = tipo; // Tipo de actividad: 'taller' o 'charla'
+        this.cupo = cupo; // Cupo máximo de participantes
+        this.edadMinima = edadMinima; // Edad mínima requerida para participar
+        this.inscritos = []; // Lista de usuarios inscritos
+    }
 
 //     // Método para inscribir un usuario en esta actividad
 //     inscribir(usuario) {
@@ -44,7 +44,7 @@ class Usuario {
 //         usuario.actividadesInscritas.push(this);
 //         return { exito: true, mensaje: 'Inscripción exitosa.' };
 //     }
-// }
+ }
 
 // // Clase que representa el sistema general de inscripción
 // class Sistema {
