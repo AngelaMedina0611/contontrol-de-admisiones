@@ -52,4 +52,15 @@ class Actividad {
         this.actividades = []; // Lista de actividades disponibles
         this.noInscritosPorCupo = []; // Usuarios que no pudieron inscribirse por falta de cupo
     }
+    
+    
+    //Método para registrar un usuario
+    registrarUsuario(usuario) {
+        if (usuario.edad < 16 && !usuario.tutor) {
+            // Si es menor de 16 y no tiene tutor, no se registra
+            console.warn(Usuario `${usuario.nombre} requiere tutor.`);
+            return;
+        }
+        this.usuarios.push(usuario); // Se añade el usuario a la lista
+    }
 }
