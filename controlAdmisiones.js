@@ -122,5 +122,9 @@ class Actividad {
         const actividad = this.actividades.find(a => a.nombre === nombreActividad);
         return actividad ? actividad.inscritos.map(u => u.nombre) : [];
     }
+    // Lista todos los usuarios de un tipo específico
+    listarAsistentesPorTipo(tipo) {
+        return this.usuarios.filter(u => u.tipo === tipo);
+    }
 
 }
