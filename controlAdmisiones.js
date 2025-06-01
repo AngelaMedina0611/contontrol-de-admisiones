@@ -63,4 +63,8 @@ class Actividad {
         }
         this.usuarios.push(usuario); // Se añade el usuario a la lista
     }
+    // Método para agregar una nueva actividad
+    agregarActividad(actividad) {
+        this.actividades.push(actividad);
+    }
 }
