@@ -117,4 +117,10 @@ class Actividad {
             }
         }
     }
+    // Lista los nombres de los participantes de una actividad específica
+    listarParticipantesPorActividad(nombreActividad) {
+        const actividad = this.actividades.find(a => a.nombre === nombreActividad);
+        return actividad ? actividad.inscritos.map(u => u.nombre) : [];
+    }
+
 }
