@@ -20,30 +20,30 @@ class Actividad {
         this.inscritos = []; // Lista de usuarios inscritos
     }
 
-//     // Método para inscribir un usuario en esta actividad
-//     inscribir(usuario) {
-//         if (usuario.actividadesInscritas.length >= 3) {
-//             // No puede inscribirse si ya tiene 3 actividades
-//             return { exito: false, mensaje: 'No puede inscribirse en más de 3 actividades.' };
-//         }
-//         if (usuario.edad < this.edadMinima) {
-//             // Rechaza si el usuario no cumple con la edad mínima
-//             return { exito: false, mensaje: `No cumple con la edad mínima de ${this.edadMinima}.` };
-//         }
-//         if (this.cupo <= this.inscritos.length) {
-//             // Rechaza si la actividad ya está llena
-//             return { exito: false, mensaje: 'Actividad llena.' };
-//         }
-//         if (usuario.tipo === 'visitante' && this.tipo !== 'charla') {
-//             // Los visitantes solo pueden asistir a charlas
-//             return { exito: false, mensaje: 'Los visitantes solo pueden asistir a charlas.' };
-//         }
+    // Método para inscribir un usuario en esta actividad
+    inscribir(usuario) {
+        if (usuario.actividadesInscritas.length >= 3) {
+            // No puede inscribirse si ya tiene 3 actividades
+            return { exito: false, mensaje: 'No puede inscribirse en más de 3 actividades.' };
+        }
+        if (usuario.edad < this.edadMinima) {
+            // Rechaza si el usuario no cumple con la edad mínima
+            return { exito: false, mensaje: `No cumple con la edad mínima de ${this.edadMinima}.` };
+        }
+        if (this.cupo <= this.inscritos.length) {
+            // Rechaza si la actividad ya está llena
+            return { exito: false, mensaje: 'Actividad llena.' };
+        }
+        if (usuario.tipo === 'visitante' && this.tipo !== 'charla') {
+            // Los visitantes solo pueden asistir a charlas
+            return { exito: false, mensaje: 'Los visitantes solo pueden asistir a charlas.' };
+        }
 
-//         // Si pasa todos los filtros, se inscribe al usuario
-//         this.inscritos.push(usuario);
-//         usuario.actividadesInscritas.push(this);
-//         return { exito: true, mensaje: 'Inscripción exitosa.' };
-//     }
+        // Si pasa todos los filtros, se inscribe al usuario
+        this.inscritos.push(usuario);
+        usuario.actividadesInscritas.push(this);
+        return { exito: true, mensaje: 'Inscripción exitosa.' };
+    }
  }
 
 // // Clase que representa el sistema general de inscripción
