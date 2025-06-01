@@ -99,5 +99,22 @@ class Actividad {
             }
         }
     }
+    // Genera un reporte con estadísticas finales
+    reporteFinal() {
+        const asistentesPorPerfil = {}; // Cantidad de usuarios por tipo
+        const demandaPorActividad = {}; // Cuántos se inscribieron por actividad
+        const edadesPorActividad = {}; // Edades de inscritos por actividad
+        let totalUsuariosCompletos = 0; // Usuarios con 3 actividades
 
+        for (const usuario of this.usuarios) {
+            asistentesPorPerfil[usuario.tipo] = (asistentesPorPerfil[usuario.tipo] || 0) + 1;
+            if (usuario.actividadesInscritas.length === 3) totalUsuariosCompletos++;
+
+            for (const act of usuario.actividadesInscritas) {
+                demandaPorActividad[act.nombre] = (demandaPorActividad[act.nombre] || 0) + 1;
+                if (!edadesPorActividad[act.nombre]) edadesPorActividad[act.nombre] = [];
+                edadesPorActividad[act.nombre].push(usuario.edad);
+            }
+        }
+    }
 }
