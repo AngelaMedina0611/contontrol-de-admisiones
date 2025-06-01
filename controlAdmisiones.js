@@ -67,4 +67,37 @@ class Actividad {
     agregarActividad(actividad) {
         this.actividades.push(actividad);
     }
+    // Método que procesa la inscripción de usuarios a actividades
+    procesarInscripciones() {
+        for (const usuario of this.usuarios) {
+            if (!usuario.deseaInscribirse) continue; // Ignora si no desea inscribirse
+
+            // Filtra las actividades candidatas según el tipo de usuario
+            let actividadesCandidatas = this.actividades.filter(act => {
+                if (usuario.tipo === 'visitante') return act.tipo === 'charla'; // visitantes solo a charlas
+                if (usuario.tipo === 'docente') return true; // docentes pueden en todas
+                if (usuario.tipo === 'estudiante') return usuario.edad >= 16; // estudiantes mayores de 16
+                return true; // profesionales también pueden en todas
+            });
+
+            // Prioridad para docentes: se inscriben automáticamente en la primera actividad disponible
+            if (usuario.tipo === 'docente') {
+                const resultado = actividadesCandidatas[0]?.inscribir(usuario);
+                if (!resultado?.exito) {
+                    this.noInscritosPorCupo.push(usuario); // Si no pudo inscribirse, lo guarda
+                }
+                continue;
+            }
+
+            // Para otros tipos de usuario, intenta inscribirse en varias actividades
+            for (const actividad of actividadesCandidatas) {
+                if (usuario.actividadesInscritas.length >= 3) break; // No más de 3 actividades
+                const resultado = actividad.inscribir(usuario);
+                if (!resultado.exito && resultado.mensaje === 'Actividad llena.') {
+                    this.noInscritosPorCupo.push(usuario); // Guarda si no se inscribió por cupo lleno
+                }
+            }
+        }
+    }
+
 }
