@@ -127,4 +127,6 @@ class Actividad {
         return this.usuarios.filter(u => u.tipo === tipo);
     }
 
-}
+} 
+// Crea una instancia del sistema
+const sistema = new Sistema();
