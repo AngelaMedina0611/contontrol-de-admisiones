@@ -44,29 +44,31 @@ class Actividad {
         usuario.actividadesInscritas.push(this);
         return { exito: true, mensaje: 'Inscripción exitosa.' };
     }
- }
+}
+
 // Clase que representa el sistema general de inscripción
- class Sistema {
+class Sistema {
     constructor() {
         this.usuarios = []; // Lista de usuarios registrados
         this.actividades = []; // Lista de actividades disponibles
         this.noInscritosPorCupo = []; // Usuarios que no pudieron inscribirse por falta de cupo
     }
-    
-    
-    //Método para registrar un usuario
+
+    // Método para registrar un usuario
     registrarUsuario(usuario) {
         if (usuario.edad < 16 && !usuario.tutor) {
             // Si es menor de 16 y no tiene tutor, no se registra
-            console.warn(Usuario `${usuario.nombre} requiere tutor.`);
+            console.warn(`Usuario ${usuario.nombre} requiere tutor.`);
             return;
         }
         this.usuarios.push(usuario); // Se añade el usuario a la lista
     }
+
     // Método para agregar una nueva actividad
     agregarActividad(actividad) {
         this.actividades.push(actividad);
     }
+
     // Método que procesa la inscripción de usuarios a actividades
     procesarInscripciones() {
         for (const usuario of this.usuarios) {
@@ -99,6 +101,7 @@ class Actividad {
             }
         }
     }
+
     // Genera un reporte con estadísticas finales
     reporteFinal() {
         const asistentesPorPerfil = {}; // Cantidad de usuarios por tipo
@@ -116,17 +119,51 @@ class Actividad {
                 edadesPorActividad[act.nombre].push(usuario.edad);
             }
         }
+
+        // Calcula la edad promedio de los participantes por actividad
+        const edadesPromedio = {};
+        for (const [nombre, edades] of Object.entries(edadesPorActividad)) {
+            const sum = edades.reduce((a, b) => a + b, 0);
+            edadesPromedio[nombre] = (sum / edades.length).toFixed(1);
+        }
+
+        return {
+            asistentesPorPerfil, // Número de usuarios por tipo
+            actividadesMasDemandadas: Object.entries(demandaPorActividad)
+                .sort((a, b) => b[1] - a[1]), // Actividades ordenadas por demanda
+            edadesPromedio, // Edad promedio por actividad
+            porcentajeCompletaron: ((totalUsuariosCompletos / this.usuarios.length) * 100).toFixed(2) + '%' // % de usuarios con 3 inscripciones
+        };
     }
+
     // Lista los nombres de los participantes de una actividad específica
     listarParticipantesPorActividad(nombreActividad) {
         const actividad = this.actividades.find(a => a.nombre === nombreActividad);
         return actividad ? actividad.inscritos.map(u => u.nombre) : [];
     }
+
     // Lista todos los usuarios de un tipo específico
     listarAsistentesPorTipo(tipo) {
         return this.usuarios.filter(u => u.tipo === tipo);
     }
+}
 
-} 
 // Crea una instancia del sistema
 const sistema = new Sistema();
+
+sistema.agregarActividad(new Actividad('Taller de Robótica Avanzada', 'taller', 10, 18));
+sistema.agregarActividad(new Actividad('Charla de Innovación', 'charla', 20));
+sistema.agregarActividad(new Actividad('Taller de Programación Básica', 'taller', 15, 16));
+
+sistema.registrarUsuario(new Usuario('Ana', 20, 'estudiante', true));
+sistema.registrarUsuario(new Usuario('Luis', 17, 'estudiante', true));
+sistema.registrarUsuario(new Usuario('Carlos', 35, 'docente', true));
+sistema.registrarUsuario(new Usuario('Marta', 30, 'profesional', true));
+sistema.registrarUsuario(new Usuario('Tomás', 15, 'estudiante', true, 'Padre'));
+sistema.registrarUsuario(new Usuario('Lucía', 25, 'visitante', true));
+
+sistema.procesarInscripciones();
+
+console.log(sistema.reporteFinal());
+console.log('Participantes en Charla de Innovación:', sistema.listarParticipantesPorActividad('Charla de Innovación'));
+console.log('No inscritos por falta de cupo:', sistema.noInscritosPorCupo.map(u => u.nombre));
