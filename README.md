@@ -121,15 +121,19 @@ Este sistema fue diseñado con base en una entrevista con el coordinador de log�
 
 - Crear una interfaz visual o API para interacción externa. 
 ## AUTORIA  
-Proyecto desarrollado como parte de la materia algoritmos 1 – Proyectos Final 
+Proyecto desarrollado como parte de la materia algoritmo 1 – Proyectos Final 
  Entrevista ficticia adaptada para fines académicos. 
+ integrantes:
+ - Manuel Raigosa 
+ - Gustavo Valencia
+ - Angela Maria Medina Ruiz
 
 
 
 
 ## EJEMPLOS DE USO 
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](assets/screenshorts/modo.png)
 
 
 
